@@ -83,5 +83,29 @@ public class Requetes {
 			}
 		}
 	
-
+		public static ArrayList<Activite> getActivitesByApprenantId(int id) throws SQLException {
+			ArrayList<Activite> activites = new ArrayList<>();
+			PreparedStatement preparedStatement = 
+				AccesBD.getConnection().prepareStatement("SELECT activite.*  FROM apprenant, liste_activites, activite WHERE (liste_activites.idApprenant = ? && liste_activites.idActivite = activite.idActivite && apprenant.idApprenant = ?)");
+				preparedStatement.setInt(1, id);
+				preparedStatement.setInt(2, id);
+				ResultSet resultat = preparedStatement.executeQuery();
+				while (resultat.next()) {
+					Activite activite = Mapping.mapperActivite(resultat);
+					activites.add(activite);
+				}
+			return activites;
+		}
+		
+		public static boolean checkIfNomExiste(String nom) throws SQLException, ClassNotFoundException {
+			String requete = "SELECT * FROM apprenant WHERE nom = \"" + nom +"\"";
+			ResultSet resultat = AccesBD.executerQuery(requete);
+			return resultat.next();
+		}
+		
+		public static void afficheActivites(ArrayList<Activite> liste_activites) {
+			for (Activite activite : liste_activites) {
+				System.out.println(activite.getNomActivite());
+			}
+		}
 }
