@@ -49,7 +49,7 @@ public class Requetes {
 			prepareStatement.setDate(3, apprenant.getDateNaissance());
 			prepareStatement.setString(4, apprenant.geteMail());
 			prepareStatement.setString(5, apprenant.getPhoto());
-			prepareStatement.setInt(6, apprenant.getIdRegion().getIdRegion());
+			prepareStatement.setInt(6, apprenant.getRegion().getIdRegion());
 			prepareStatement.executeUpdate();
 		}
 		
