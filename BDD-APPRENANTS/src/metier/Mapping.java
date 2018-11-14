@@ -7,6 +7,8 @@ import model.Activite;
 import model.Apprenant;
 import model.Region;
 
+
+
 public class Mapping {
 	
 	public Mapping() {
@@ -23,7 +25,7 @@ public class Mapping {
 		apprenant.setDateNaissance(resultat.getDate("dateNaissance"));
 		apprenant.seteMail(resultat.getString("eMail"));
 		apprenant.setPhoto(resultat.getString("photo"));
-		apprenant.setIdRegion(Requetes.getRegionByIdAvecMapping(resultat.getInt("idRegion")));
+		apprenant.setRegion(Requetes.getRegionByIdAvecMapping(resultat.getInt("idRegion")));
 		
 		return apprenant;
 	}

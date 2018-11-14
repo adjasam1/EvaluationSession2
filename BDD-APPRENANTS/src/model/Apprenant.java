@@ -4,34 +4,49 @@ import java.sql.Date;
 
 public class Apprenant {
 
-	private int id;
-	private String prenom, nom, mail, photo;
-	private Date dateDeNaissance;
+	private int idApprenant;
+	private String prenom, nom, eMail, photo;
+	private Date dateNaissance;
 	private Region region;
+	
+	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Apprenant [idApprenant=" + idApprenant + ", prenom=" + prenom + ", nom=" + nom + ", eMail=" + eMail
+				+ ", photo=" + photo + ", dateNaissance=" + dateNaissance + ", region=" + region + "]";
+	}
 	/**
-	 * @param id
+	 * 
+	 */
+	public Apprenant() {
+	}
+	/**
+	 * @param idApprenant
 	 * @param prenom
 	 * @param nom
-	 * @param mail
+	 * @param eMail
 	 * @param photo
-	 * @param dateDeNaissance
+	 * @param dateNaissance
 	 * @param region
 	 */
-	public Apprenant(int id, String prenom, String nom, String mail, String photo, Date dateDeNaissance,
+	public Apprenant(int idApprenant, String prenom, String nom, String eMail, String photo, Date dateNaissance,
 			Region region) {
-		this.id = id;
+		this.idApprenant = idApprenant;
 		this.prenom = prenom;
 		this.nom = nom;
-		this.mail = mail;
+		this.eMail = eMail;
 		this.photo = photo;
-		this.dateDeNaissance = dateDeNaissance;
+		this.dateNaissance = dateNaissance;
 		this.region = region;
 	}
-	public int getId() {
-		return id;
+	public int getIdApprenant() {
+		return idApprenant;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdApprenant(int idApprenant) {
+		this.idApprenant = idApprenant;
 	}
 	public String getPrenom() {
 		return prenom;
@@ -45,11 +60,11 @@ public class Apprenant {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public String getMail() {
-		return mail;
+	public String geteMail() {
+		return eMail;
 	}
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
 	}
 	public String getPhoto() {
 		return photo;
@@ -57,11 +72,11 @@ public class Apprenant {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	public Date getDateDeNaissance() {
-		return dateDeNaissance;
+	public Date getDateNaissance() {
+		return dateNaissance;
 	}
-	public void setDateDeNaissance(Date dateDeNaissance) {
-		this.dateDeNaissance = dateDeNaissance;
+	public void setDateNaissance(Date dateNaissance) {
+		this.dateNaissance = dateNaissance;
 	}
 	public Region getRegion() {
 		return region;
@@ -69,12 +84,8 @@ public class Apprenant {
 	public void setRegion(Region region) {
 		this.region = region;
 	}
-	@Override
-	public String toString() {
-		return "Apprenant [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", mail=" + mail + ", photo=" + photo
-				+ ", dateDeNaissance=" + dateDeNaissance + ", region=" + region + "]";
+
+	
+	
+	
 	}
-	
-	
-	
-}
