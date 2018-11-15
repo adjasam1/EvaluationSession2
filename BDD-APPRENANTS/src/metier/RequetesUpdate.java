@@ -1,9 +1,12 @@
 package metier;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 import connection.AccesBD;
+import model.Apprenant;
 
 public class RequetesUpdate {
 
@@ -22,6 +25,20 @@ public class RequetesUpdate {
 		
 		
 	}
+	
+	
+	// Ajouter apprenant
+			Apprenant nouveauApprenant = new Apprenant();
+			nouveauApprenant.setPrenom("Jack");
+			nouveauApprenant.setNom("Daniel");
+			String dateJack = "1846-11-23";
+			Date date = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(dateJack);
+			nouveauApprenant.setDateNaissance(date);
+			nouveauApprenant.seteMail("jack.daniel@whisky.com");
+			nouveauApprenant.setPhoto(null);
+			nouveauApprenant.setRegion();
+			
+			Requetes.ajouterApprenant(nouveauApprenant);
 
 
 }

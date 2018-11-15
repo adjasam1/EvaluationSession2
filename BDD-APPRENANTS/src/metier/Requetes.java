@@ -201,5 +201,18 @@ public class Requetes {
 		return null;
 
 	}
+	
+	
+	public static void ajouterApprenant(Apprenant apprenant) throws SQLException {
+		
+		PreparedStatement prepareStatement = AccesBD.getConnection().prepareStatement("INSERT INTO apprenant VALUES( null , ? , ? , ? , ? , ? , ? )");
+		prepareStatement.setString(1, apprenant.getPrenom());
+		prepareStatement.setString(2, apprenant.getNom());
+		prepareStatement.setDate(3, apprenant.getDateNaissance());
+		prepareStatement.setString(4, apprenant.geteMail());
+		prepareStatement.setString(5, apprenant.getPhoto());
+		prepareStatement.setInt(6, apprenant.getRegion().getIdRegion());
+		prepareStatement.executeUpdate();
+	}
 
 }
