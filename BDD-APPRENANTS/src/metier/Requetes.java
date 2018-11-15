@@ -212,7 +212,20 @@ public class Requetes {
 
 	}
 	
+	public static void modifierRegionApprenant(Apprenant apprenant) {
+		
+		try {
+			PreparedStatement preparedStatement = AccesBD.getConnection().prepareStatement("UPDATE apprenant SET region = ? WHERE idApprenant = ? ");
+			preparedStatement.setInt(1, apprenant.getRegion().getIdRegion());
+			preparedStatement.setInt(2, apprenant.getIdApprenant());
+			preparedStatement.executeUpdate();
+			System.out.println("Modification effectuee pour la region de l'apprenant : " + apprenant);
 	
+		}
+		catch (SQLException e) {
+			System.out.println("Erreur lors de la modification !");
+		}
+	}
 	
 	
 	
