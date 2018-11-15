@@ -25,7 +25,7 @@ public class Mapping {
 		apprenant.setDateNaissance(resultat.getDate("dateNaissance"));
 		apprenant.seteMail(resultat.getString("eMail"));
 		apprenant.setPhoto(resultat.getString("photo"));
-		apprenant.setRegion(Requetes.getRegionByIdAvecMapping(resultat.getInt("idRegion")));
+		apprenant.setRegion(Requetes.getRegionById(resultat.getInt("idRegion")));
 		
 		return apprenant;
 	}

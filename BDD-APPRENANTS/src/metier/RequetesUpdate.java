@@ -1,9 +1,8 @@
 package metier;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+
 
 import connection.AccesBD;
 import model.Apprenant;
@@ -22,23 +21,33 @@ public class RequetesUpdate {
 		} catch (SQLException e) {
 			System.out.println("Erreur lors de la modification !");
 		}
+	}
+	
+	public static void ajouterApprenant(Apprenant apprenant) throws SQLException {	
+		PreparedStatement prepareStatement = AccesBD.getConnection().prepareStatement("INSERT INTO apprenant VALUES( null , ? , ? , ? , ? , ? , ? )");
+		prepareStatement.setString(1, apprenant.getPrenom());
+		prepareStatement.setString(2, apprenant.getNom());
+		java.sql.Date sqlDate = new java.sql.Date(apprenant.getDateNaissance().getTime());
 		
-		
+		prepareStatement.setDate(3, sqlDate);
+		prepareStatement.setString(4, apprenant.geteMail());
+		prepareStatement.setString(5, apprenant.getPhoto());
+		prepareStatement.setInt(6, apprenant.getRegion().getIdRegion());
+		prepareStatement.executeUpdate();
 	}
 	
 	
-	// Ajouter apprenant
-			Apprenant nouveauApprenant = new Apprenant();
-			nouveauApprenant.setPrenom("Jack");
-			nouveauApprenant.setNom("Daniel");
-			String dateJack = "1846-11-23";
-			Date date = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(dateJack);
-			nouveauApprenant.setDateNaissance(date);
-			nouveauApprenant.seteMail("jack.daniel@whisky.com");
-			nouveauApprenant.setPhoto(null);
-			nouveauApprenant.setRegion();
-			
-			Requetes.ajouterApprenant(nouveauApprenant);
-
+	// ajouter 2 activites à un apprenant
+	public static void ajouterActiviteAUnApprenant(int idApprenant, int idActivite) throws ClassNotFoundException, SQLException {
+		try {
+		PreparedStatement prepareStatement = AccesBD.getConnection().prepareStatement("INSERT INTO liste_activites (idActivite, idApprenant) VALUES (?,?)");		
+		prepareStatement.setInt(1, idActivite);
+		prepareStatement.setInt(2, idApprenant);
+		prepareStatement.executeUpdate();
+		System.out.println("Ajout d'activite effectué.");
+		} catch (SQLException e) {
+			System.out.println("L'ajout de l'activité a échoué !");
+		}
+	}
 
 }

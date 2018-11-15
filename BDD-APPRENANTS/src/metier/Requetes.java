@@ -20,7 +20,7 @@ public class Requetes {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Region getRegionByIdAvecMapping(int idRegion) throws SQLException {
+	public static Region getRegionById(int idRegion) throws SQLException {
 
 		PreparedStatement preparedStatement = AccesBD.getConnection()
 				.prepareStatement("SELECT * FROM region WHERE idRegion = ?");
@@ -166,7 +166,11 @@ public class Requetes {
 		return resultat.next();
 	}
 
-	
+	public static boolean checkIfApprenantIdExiste(int id) throws SQLException, ClassNotFoundException {
+		String requete = "SELECT * FROM apprenant WHERE id = \"" + id + "\"";
+		ResultSet resultat = AccesBD.executerQuery(requete);
+		return resultat.next();
+	}
 
 	
 	/**
@@ -203,16 +207,8 @@ public class Requetes {
 	}
 	
 	
-	public static void ajouterApprenant(Apprenant apprenant) throws SQLException {
-		
-		PreparedStatement prepareStatement = AccesBD.getConnection().prepareStatement("INSERT INTO apprenant VALUES( null , ? , ? , ? , ? , ? , ? )");
-		prepareStatement.setString(1, apprenant.getPrenom());
-		prepareStatement.setString(2, apprenant.getNom());
-		prepareStatement.setDate(3, apprenant.getDateNaissance());
-		prepareStatement.setString(4, apprenant.geteMail());
-		prepareStatement.setString(5, apprenant.getPhoto());
-		prepareStatement.setInt(6, apprenant.getRegion().getIdRegion());
-		prepareStatement.executeUpdate();
-	}
+	
+	
+	
 
 }

@@ -6,7 +6,7 @@ public class Apprenant {
 
 	private int idApprenant;
 	private String prenom, nom, eMail, photo;
-	private Date dateNaissance;
+	private java.sql.Date dateNaissance;
 	private Region region;
 	
 	

@@ -5,6 +5,10 @@ public class Region {
 	private int idRegion;
 	private String nomRegion;
 	
+	
+	public Region() {
+		
+	}
 	public Region(int idRegion, String nomRegion) {
 		super();
 		this.idRegion = idRegion;

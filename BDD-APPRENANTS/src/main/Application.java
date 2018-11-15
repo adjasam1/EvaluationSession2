@@ -1,5 +1,6 @@
 package main;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import metier.MethodesAffichage;
 import metier.RequetesUpdate;
@@ -7,7 +8,7 @@ import metier.RequetesUpdate;
 public class Application {
 
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException {
 		
 
 		MethodesAffichage.afficherListeApprenants();
@@ -17,6 +18,8 @@ public class Application {
 		MethodesAffichage.afficherActivitesQuePersonneNefait();
 		
 		RequetesUpdate.updateNomApprenant(17,"ZébuModif");
+	
+		MethodesAffichage.choisirApprenantEtAjouterActivite();
 	}
 	
 }

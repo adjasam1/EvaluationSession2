@@ -1,10 +1,15 @@
 package metier;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import model.Activite;
 import model.Apprenant;
+import model.Region;
 
 public class MethodesAffichage {
 
@@ -30,9 +35,9 @@ public class MethodesAffichage {
 	 */
 	public static void afficherListeNomsApprenantsEnLigne() throws ClassNotFoundException, SQLException {
 		for (Apprenant apprenant : Requetes.getAllApprenantsAvecMapping()) {
-			System.out.print("|" + apprenant.getNom());
+			System.out.print("| id:"+ apprenant.getIdApprenant() + "-" + apprenant.getNom()+ " ");
 		}
-		System.out.println("|\n");
+		System.out.println(" |\n");
 	}
 
 	
@@ -69,7 +74,7 @@ public class MethodesAffichage {
 		boolean continuer = true;
 		do {
 			System.out.println(
-					"Tapez le nom de l'apprenant dont vous voulez connaître les activités ou ' 0 ' pour quitter : ");
+					"Tapez le NOM de l'apprenant dont vous voulez connaître les activités ou ' 0 ' pour quitter : ");
 			Scanner sc = new Scanner(System.in);
 			String entree = sc.nextLine();
 			if (entree.equals("0")) {
@@ -80,7 +85,7 @@ public class MethodesAffichage {
 				} else {
 					Apprenant apprenant = Requetes.getApprenantByName(entree);
 					if (Requetes.getActivitesByApprenantId(apprenant.getIdApprenant()).size() > 0) {
-						MethodesAffichage.afficheActivites(Requetes.getActivitesByApprenantId(apprenant.getIdApprenant()));
+						afficheActivites(Requetes.getActivitesByApprenantId(apprenant.getIdApprenant()));
 					} else {
 						System.out.println("Aucune activité !");
 					}
@@ -108,7 +113,7 @@ public class MethodesAffichage {
 			if (rep.equals("0")) {
 				continuer = false;
 			} else {
-				MethodesAffichage.afficherApprenantsParActiviteById(Integer.parseInt(rep));
+				afficherApprenantsParActiviteById(Integer.parseInt(rep));
 			}
 
 		} while (continuer);
@@ -184,5 +189,51 @@ public class MethodesAffichage {
 			System.out.println(activite.getNomActivite());
 		}
 	}
+	
+public static void creerApprenantEtAjouterABDD() throws SQLException, ParseException {
+		
+		Apprenant nouveauApprenant = new Apprenant();
+		nouveauApprenant.setPrenom("Jack");
+		nouveauApprenant.setNom("Daniel");
+		String dateJack = "1846 11 23";
+		java.sql.Date date = (Date) new SimpleDateFormat("yyyy MM dd").parse(dateJack);
+		nouveauApprenant.setDateNaissance(date);
+		nouveauApprenant.seteMail("jack.daniel@whisky.com");
+		nouveauApprenant.setPhoto(null);
+		int idRegion = 3;
+		Region region = new Region();
+		nouveauApprenant.setRegion(Requetes.getRegionById(idRegion));
+		
+		RequetesUpdate.ajouterApprenant(nouveauApprenant);
+	}
 
+
+	public static void choisirApprenantEtAjouterActivite() throws ClassNotFoundException, SQLException {
+		boolean continuer = true;
+		do {
+		System.out.println("Ajouter une activité à un apprenant : ");
+		afficherListeNomsApprenantsEnLigne();
+		System.out.println("Indiquer l'ID de l'apprenant concerné :");
+		Scanner sc = new Scanner(System.in);
+		int idApprenant = Integer.parseInt(sc.nextLine());
+		afficherActivitesAvecLeurId();
+		System.out.println("Indiquer l'id de l'activité concernée :");
+		int idActivite = Integer.parseInt(sc.nextLine());
+		RequetesUpdate.ajouterActiviteAUnApprenant(idApprenant, idActivite);
+		System.out.println("L'apprenant " + Requetes.getApprenantById(idApprenant).getNom() + " pratique désormais les activités suivantes :");
+		afficheActivites(Requetes.getActivitesByApprenantId(Requetes.getApprenantById(idApprenant).getIdApprenant()));
+		System.out.println("Faut-il ajouter une autre activité (o/n) ? ");
+		if (!sc.nextLine().toLowerCase().equals("o")) {
+			continuer = false;
+		}
+		} while (continuer);
+	}
+	
+	public static void afficherActivitesAvecLeurId() throws ClassNotFoundException, SQLException {
+		for (Activite activite : Requetes.getAllActivitesAvecmapping()) {
+
+			System.out.println(activite.getIdActivite() + " " + activite.getNomActivite());
+		}
+		
+	}
 }
