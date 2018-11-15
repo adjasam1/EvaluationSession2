@@ -38,7 +38,7 @@ public class Requetes {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ArrayList<Activite> getAllActivitesAvecmapping() throws ClassNotFoundException, SQLException {
+	public static ArrayList<Activite> getAllActivites() throws ClassNotFoundException, SQLException {
 		ArrayList<Activite> activites = new ArrayList();
 		String requete = "SELECT * FROM activite ORDER BY idActivite";
 		ResultSet resultat = AccesBD.executerQuery(requete);
@@ -58,7 +58,7 @@ public class Requetes {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ArrayList<Apprenant> getAllApprenantsAvecMapping() throws ClassNotFoundException, SQLException {
+	public static ArrayList<Apprenant> getAllApprenants() throws ClassNotFoundException, SQLException {
 		ArrayList<Apprenant> apprenants = new ArrayList<Apprenant>();
 		String requete = "SELECT * FROM apprenant ORDER BY idApprenant";
 		ResultSet resultat = AccesBD.executerQuery(requete);
@@ -212,10 +212,14 @@ public class Requetes {
 
 	}
 	
+	/**
+	 * Modifie l'id Region d'un Apprenant 
+	 * @param apprenant
+	 */
 	public static void modifierRegionApprenant(Apprenant apprenant) {
 		
 		try {
-			PreparedStatement preparedStatement = AccesBD.getConnection().prepareStatement("UPDATE apprenant SET region = ? WHERE idApprenant = ? ");
+			PreparedStatement preparedStatement = AccesBD.getConnection().prepareStatement("UPDATE apprenant SET idRegion = ? WHERE idApprenant = ? ");
 			preparedStatement.setInt(1, apprenant.getRegion().getIdRegion());
 			preparedStatement.setInt(2, apprenant.getIdApprenant());
 			preparedStatement.executeUpdate();

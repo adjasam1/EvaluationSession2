@@ -5,6 +5,15 @@ public class Activite {
 	private int idActivite;
 	private String nomActivite;
 	
+	public Activite() {	
+	}
+	
+	/**
+	 * 
+	 * @param idActivite
+	 * @param nomActivite
+	 */
+	
 	public Activite(int idActivite, String nomActivite) {
 		this.idActivite = idActivite;
 		this.nomActivite = nomActivite;

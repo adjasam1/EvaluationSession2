@@ -3,7 +3,6 @@ package metier;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,7 +11,6 @@ import model.Apprenant;
 import model.Region;
 
 public class MethodesAffichage {
-	
 
 	/**
 	 * Affiche tous les apprenants sous forme de liste 'nom prénom'
@@ -22,12 +20,11 @@ public class MethodesAffichage {
 	 */
 
 	public static void afficherListeApprenants() throws ClassNotFoundException, SQLException {
-		for (Apprenant apprenant : Requetes.getAllApprenantsAvecMapping()) {
+		for (Apprenant apprenant : Requetes.getAllApprenants()) {
 
 			System.out.println(apprenant.getNom() + " " + apprenant.getPrenom());
 		}
 	}
-	
 
 	/**
 	 * Affiche tous les noms des apprenants sous forme de liste sur une ligne
@@ -36,7 +33,7 @@ public class MethodesAffichage {
 	 * @throws SQLException
 	 */
 	public static void afficherListeNomsApprenantsEnLigne() throws ClassNotFoundException, SQLException {
-		for (Apprenant apprenant : Requetes.getAllApprenantsAvecMapping()) {
+		for (Apprenant apprenant : Requetes.getAllApprenants()) {
 			System.out.print("| id:" + apprenant.getIdApprenant() + "-" + apprenant.getNom() + " ");
 		}
 		System.out.println(" |\n");
@@ -107,7 +104,7 @@ public class MethodesAffichage {
 	 * @throws SQLException
 	 */
 	public static void choisirUneActiviteById() throws ClassNotFoundException, SQLException {
-		for (Activite activite : Requetes.getAllActivitesAvecmapping()) {
+		for (Activite activite : Requetes.getAllActivites()) {
 			System.out.println(activite.getIdActivite() + " : " + activite.getNomActivite());
 		}
 		boolean continuer = true;
@@ -125,7 +122,6 @@ public class MethodesAffichage {
 		} while (continuer);
 	}
 
-	
 	/**
 	 * Affiche la liste des apprenants par région
 	 * 
@@ -140,7 +136,7 @@ public class MethodesAffichage {
 		ArrayList<String> paysDeLoire = new ArrayList<String>();
 		ArrayList<String> aquitaine = new ArrayList<String>();
 
-		for (Apprenant apprenant : Requetes.getAllApprenantsAvecMapping()) {
+		for (Apprenant apprenant : Requetes.getAllApprenants()) {
 
 			if (apprenant.getRegion().getIdRegion() == 1) {
 				ileDeFrance.add(apprenant.getPrenom() + " " + apprenant.getNom());
@@ -166,7 +162,6 @@ public class MethodesAffichage {
 
 		System.out.println("\n========================================\n");
 	}
-	
 
 	/**
 	 * Affiche la liste des activités qui ne sont pratiquées par personne
@@ -188,7 +183,6 @@ public class MethodesAffichage {
 		}
 	}
 
-	
 	/**
 	 * Affiche la liste des activités
 	 * 
@@ -199,9 +193,14 @@ public class MethodesAffichage {
 			System.out.println(activite.getNomActivite());
 		}
 	}
-	
-	
 
+	/**
+	 * Crée un nouvel Apprenant en fonction des entrées clavier de l'utilisateur
+	 * Ajoute cet Apprenant à la BDD
+	 * 
+	 * @throws SQLException
+	 * @throws ParseException
+	 */
 	public static void creerApprenantEtAjouterABDD() throws SQLException, ParseException {
 
 		Apprenant nouveauApprenant = new Apprenant();
@@ -222,9 +221,10 @@ public class MethodesAffichage {
 		nouveauApprenant.setRegion(Requetes.getRegionById(idRegion));
 		RequetesUpdate.ajouterApprenant(nouveauApprenant);
 	}
-	
-	/** 
+
+	/**
 	 * Choisir un apprenant et lui ajouter une activité
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -251,16 +251,16 @@ public class MethodesAffichage {
 			}
 		} while (continuer);
 	}
-	
-	
+
 	/**
 	 * Affiche les activités avec leur id
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
 
 	public static void afficherActivitesAvecLeurId() throws ClassNotFoundException, SQLException {
-		for (Activite activite : Requetes.getAllActivitesAvecmapping()) {
+		for (Activite activite : Requetes.getAllActivites()) {
 
 			System.out.println(activite.getIdActivite() + " " + activite.getNomActivite());
 		}

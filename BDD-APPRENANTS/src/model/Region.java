@@ -6,11 +6,16 @@ public class Region {
 	private String nomRegion;
 	
 	
-	public Region() {
-		
+	public Region() {	
 	}
+	
+	/**
+	 * 
+	 * @param idRegion
+	 * @param nomRegion
+	 */
+	
 	public Region(int idRegion, String nomRegion) {
-		super();
 		this.idRegion = idRegion;
 		this.nomRegion = nomRegion;
 	}

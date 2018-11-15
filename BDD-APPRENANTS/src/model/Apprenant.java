@@ -8,21 +8,10 @@ public class Apprenant {
 	private String prenom, nom, eMail, photo;
 	private java.sql.Date dateNaissance;
 	private Region region;
-	
-	
-	
-	
-	
-	@Override
-	public String toString() {
-		return "Apprenant [idApprenant=" + idApprenant + ", prenom=" + prenom + ", nom=" + nom + ", eMail=" + eMail
-				+ ", photo=" + photo + ", dateNaissance=" + dateNaissance + ", region=" + region + "]";
-	}
-	/**
-	 * 
-	 */
+
 	public Apprenant() {
 	}
+
 	/**
 	 * @param idApprenant
 	 * @param prenom
@@ -42,50 +31,67 @@ public class Apprenant {
 		this.dateNaissance = dateNaissance;
 		this.region = region;
 	}
+
 	public int getIdApprenant() {
 		return idApprenant;
 	}
+
 	public void setIdApprenant(int idApprenant) {
 		this.idApprenant = idApprenant;
 	}
+
 	public String getPrenom() {
 		return prenom;
 	}
+
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+
 	public String getNom() {
 		return nom;
 	}
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
 	public String geteMail() {
 		return eMail;
 	}
+
 	public void seteMail(String eMail) {
 		this.eMail = eMail;
 	}
+
 	public String getPhoto() {
 		return photo;
 	}
+
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+
 	public Date getDateNaissance() {
 		return dateNaissance;
 	}
+
 	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
+
 	public Region getRegion() {
 		return region;
 	}
+
 	public void setRegion(Region region) {
 		this.region = region;
 	}
 
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Apprenant [idApprenant=" + idApprenant + ", prenom=" + prenom + ", nom=" + nom + ", eMail=" + eMail
+				+ ", photo=" + photo + ", dateNaissance=" + dateNaissance + ", region=" + region + "]";
 	}
+
+}

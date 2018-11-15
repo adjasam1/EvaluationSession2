@@ -15,7 +15,12 @@ public class Mapping {
 		
 	}
 	
-	// methode pour instancier objet Apprenant
+	/**
+	 * Méthode pour instancier objet Apprenant
+	 * @param resultat
+	 * @return
+	 * @throws SQLException
+	 */
 	public static Apprenant mapperApprenant(ResultSet resultat) throws SQLException {
 		
 		Apprenant apprenant = new Apprenant();
@@ -30,7 +35,12 @@ public class Mapping {
 		return apprenant;
 	}
 	
-	// methode pour instancier objet Activite
+	/**
+	 * Méthode pour instancier objet Activite
+	 * @param resultat
+	 * @return
+	 * @throws SQLException
+	 */
 	public static Activite mapperActivite(ResultSet resultat) throws SQLException {
 		
 		Activite activite = new Activite(0, null);
@@ -41,7 +51,13 @@ public class Mapping {
 		
 	}
 	
-	// methode pour instancier objet Region
+	/**
+	 * Méthode pour instancier objet Region
+	 * @param resultat
+	 * @return
+	 * @throws SQLException
+	 */
+	 
 	public static Region mapperRegion(ResultSet resultat) throws SQLException {
 		
 		Region region = new Region(0, null);
