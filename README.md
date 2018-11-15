@@ -13,6 +13,10 @@ Générer MLD et Script SQL
 Création base de données avec MySQL Workbench et PHPMyAdmin
 Ajouts des informations dans les tables
 
+![image](./BDD-APPRENANTS/img/EvaluationSession2_MCD.png)
+
+![image](./BDD-APPRENANTS/img/EvaluationSession2_MLD.png)
+
 ### Configuration espace de travail ###
 
 Création repository Github
