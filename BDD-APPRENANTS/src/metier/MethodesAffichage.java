@@ -12,38 +12,40 @@ import model.Apprenant;
 import model.Region;
 
 public class MethodesAffichage {
+	
 
-	
-	
 	/**
 	 * Affiche tous les apprenants sous forme de liste 'nom prénom'
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	
+
 	public static void afficherListeApprenants() throws ClassNotFoundException, SQLException {
 		for (Apprenant apprenant : Requetes.getAllApprenantsAvecMapping()) {
 
 			System.out.println(apprenant.getNom() + " " + apprenant.getPrenom());
 		}
 	}
+	
 
 	/**
 	 * Affiche tous les noms des apprenants sous forme de liste sur une ligne
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
 	public static void afficherListeNomsApprenantsEnLigne() throws ClassNotFoundException, SQLException {
 		for (Apprenant apprenant : Requetes.getAllApprenantsAvecMapping()) {
-			System.out.print("| id:"+ apprenant.getIdApprenant() + "-" + apprenant.getNom()+ " ");
+			System.out.print("| id:" + apprenant.getIdApprenant() + "-" + apprenant.getNom() + " ");
 		}
 		System.out.println(" |\n");
 	}
 
-	
 	/**
-	 * Affiche la liste des apprenants pratiquant une activité dont l'id a été passé en paramètre
-	 * (sous la forme 'prénom nom')
+	 * Affiche la liste des apprenants pratiquant une activité dont l'id a été passé
+	 * en paramètre (sous la forme 'prénom nom')
+	 * 
 	 * @param id
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -64,7 +66,9 @@ public class MethodesAffichage {
 	}
 
 	/**
-	 * Affiche un menu qui permet d'entrer le nom de l'apprenant dont on veut voir les activités
+	 * Affiche un menu qui permet d'entrer le nom de l'apprenant dont on veut voir
+	 * les activités
+	 * 
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -96,7 +100,9 @@ public class MethodesAffichage {
 	}
 
 	/**
-	 * Affiche un menu qui permet de choisir l'activité dont on souhaite voir par qui elle est pratiquée 
+	 * Affiche un menu qui permet de choisir l'activité dont on souhaite voir par
+	 * qui elle est pratiquée
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -122,6 +128,7 @@ public class MethodesAffichage {
 	
 	/**
 	 * Affiche la liste des apprenants par région
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -159,10 +166,11 @@ public class MethodesAffichage {
 
 		System.out.println("\n========================================\n");
 	}
-
 	
+
 	/**
 	 * Affiche la liste des activités qui ne sont pratiquées par personne
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -179,9 +187,11 @@ public class MethodesAffichage {
 
 		}
 	}
+
 	
 	/**
 	 * Affiche la liste des activités
+	 * 
 	 * @param liste_activites
 	 */
 	public static void afficheActivites(ArrayList<Activite> liste_activites) {
@@ -190,50 +200,70 @@ public class MethodesAffichage {
 		}
 	}
 	
-public static void creerApprenantEtAjouterABDD() throws SQLException, ParseException {
-		
+	
+
+	public static void creerApprenantEtAjouterABDD() throws SQLException, ParseException {
+
 		Apprenant nouveauApprenant = new Apprenant();
-		nouveauApprenant.setPrenom("Jack");
-		nouveauApprenant.setNom("Daniel");
-		String dateJack = "1846 11 23";
-		java.sql.Date date = (Date) new SimpleDateFormat("yyyy MM dd").parse(dateJack);
-		nouveauApprenant.setDateNaissance(date);
-		nouveauApprenant.seteMail("jack.daniel@whisky.com");
-		nouveauApprenant.setPhoto(null);
-		int idRegion = 3;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Entrez le prénom de l'apprenant : ");
+		nouveauApprenant.setPrenom(sc.nextLine());
+		System.out.println("Entrez le nom de l'apprenant : ");
+		nouveauApprenant.setNom(sc.nextLine());
+		System.out.println("Entrez la date de naissance au format AAAA-MM-JJ :");
+		java.sql.Date dateNaissance = Date.valueOf(sc.nextLine());
+		nouveauApprenant.setDateNaissance(dateNaissance);
+		System.out.println("Entrez l'adresse mail :");
+		nouveauApprenant.seteMail(sc.nextLine());
+		nouveauApprenant.setPhoto("");
+		System.out.println("Entrez l'identifiant de région [1,2 ou3] :");
+		int idRegion = Integer.parseInt(sc.nextLine());
 		Region region = new Region();
 		nouveauApprenant.setRegion(Requetes.getRegionById(idRegion));
-		
 		RequetesUpdate.ajouterApprenant(nouveauApprenant);
 	}
-
+	
+	/** 
+	 * Choisir un apprenant et lui ajouter une activité
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 
 	public static void choisirApprenantEtAjouterActivite() throws ClassNotFoundException, SQLException {
 		boolean continuer = true;
 		do {
-		System.out.println("Ajouter une activité à un apprenant : ");
-		afficherListeNomsApprenantsEnLigne();
-		System.out.println("Indiquer l'ID de l'apprenant concerné :");
-		Scanner sc = new Scanner(System.in);
-		int idApprenant = Integer.parseInt(sc.nextLine());
-		afficherActivitesAvecLeurId();
-		System.out.println("Indiquer l'id de l'activité concernée :");
-		int idActivite = Integer.parseInt(sc.nextLine());
-		RequetesUpdate.ajouterActiviteAUnApprenant(idApprenant, idActivite);
-		System.out.println("L'apprenant " + Requetes.getApprenantById(idApprenant).getNom() + " pratique désormais les activités suivantes :");
-		afficheActivites(Requetes.getActivitesByApprenantId(Requetes.getApprenantById(idApprenant).getIdApprenant()));
-		System.out.println("Faut-il ajouter une autre activité (o/n) ? ");
-		if (!sc.nextLine().toLowerCase().equals("o")) {
-			continuer = false;
-		}
+			System.out.println("Ajouter une activité à un apprenant : ");
+			afficherListeNomsApprenantsEnLigne();
+			System.out.println("Indiquer l'ID de l'apprenant concerné :");
+			Scanner sc = new Scanner(System.in);
+			int idApprenant = Integer.parseInt(sc.nextLine());
+			afficherActivitesAvecLeurId();
+			System.out.println("Indiquer l'id de l'activité concernée :");
+			int idActivite = Integer.parseInt(sc.nextLine());
+			RequetesUpdate.ajouterActiviteAUnApprenant(idApprenant, idActivite);
+			System.out.println("L'apprenant " + Requetes.getApprenantById(idApprenant).getNom()
+					+ " pratique désormais les activités suivantes :");
+			afficheActivites(
+					Requetes.getActivitesByApprenantId(Requetes.getApprenantById(idApprenant).getIdApprenant()));
+			System.out.println("Faut-il ajouter une autre activité (o/n) ? ");
+			if (!sc.nextLine().toLowerCase().equals("o")) {
+				continuer = false;
+			}
 		} while (continuer);
 	}
 	
+	
+	/**
+	 * Affiche les activités avec leur id
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+
 	public static void afficherActivitesAvecLeurId() throws ClassNotFoundException, SQLException {
 		for (Activite activite : Requetes.getAllActivitesAvecmapping()) {
 
 			System.out.println(activite.getIdActivite() + " " + activite.getNomActivite());
 		}
-		
+
 	}
 }

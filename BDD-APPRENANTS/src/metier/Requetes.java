@@ -167,7 +167,7 @@ public class Requetes {
 	}
 
 	public static boolean checkIfApprenantIdExiste(int id) throws SQLException, ClassNotFoundException {
-		String requete = "SELECT * FROM apprenant WHERE id = \"" + id + "\"";
+		String requete = "SELECT * FROM apprenant WHERE idApprenant = \"" + id + "\"";
 		ResultSet resultat = AccesBD.executerQuery(requete);
 		return resultat.next();
 	}
@@ -191,7 +191,13 @@ public class Requetes {
 	}
 
 	
-	
+	/**
+	 * Retourne un Apprenant selon son id
+	 * @param id
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 
 	public static Apprenant getApprenantById(int id) throws ClassNotFoundException, SQLException {
 		Apprenant apprenant = new Apprenant();
