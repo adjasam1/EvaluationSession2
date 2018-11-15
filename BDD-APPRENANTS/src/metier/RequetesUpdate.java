@@ -2,7 +2,7 @@ package metier;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+import java.sql.Statement;
 
 import connection.AccesBD;
 import model.Apprenant;
@@ -49,5 +49,21 @@ public class RequetesUpdate {
 			System.out.println("L'ajout de l'activité a échoué !");
 		}
 	}
+	
+	// supprimer apprenant
+				public static void supprimerApprenant(Apprenant apprenant) {
+
+					Statement statement = null;
+
+					try {
+						statement = AccesBD.getConnection().createStatement();
+						String sql = "DELETE FROM apprenant WHERE idApprenant = " + apprenant.getIdApprenant();
+						statement.executeUpdate(sql);
+						System.out.println("Suppression de l'apprenant " + apprenant + " effectuee");
+					}
+					catch(SQLException e){
+						System.out.println("Erreur lors de la suppression du pilote !");
+					}
+				}
 
 }
